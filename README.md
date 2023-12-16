@@ -20,8 +20,8 @@ Dự án này nhằm mục đích phát triển một ứng dụng sử dụng n
 
 2. **Clone Dự Án:**
    ```bash
-   git clone https://github.com/your_username/your_project.git
-   cd your_project
+   git clone https://github.com/thanhphanvan1610/typescriptnode.git
+   cd typescriptnode
    ```
 
 3. **Cài Đặt Thư Viện:**
@@ -29,9 +29,14 @@ Dự án này nhằm mục đích phát triển một ứng dụng sử dụng n
    npm install
    ```
 
-4. **Biên Dịch và Chạy:**
+4. **Biên Dịch:**
    ```bash
    npm run build
+   ```
+   
+5. **Chạy Dự Án:**
+   ```bash
+   npm run start
    ```
 
 ### Hướng Dẫn Sử Dụng
