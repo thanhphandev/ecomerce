@@ -1,13 +1,12 @@
-type User = {
-    username: string,
-    email: string,
-    phone: number
-}
-export const retrieveData = (user: User) => {
+import { IUser } from "models/users.models";
+import { generateAccessToken } from "./jwt";
+export const retrieveData = (user:IUser) => {
+    const access_token = generateAccessToken(user);
     return {
         username: user.username,
         email: user.email,
         phone: user.phone,
+        access_token: access_token
     }
 
 }

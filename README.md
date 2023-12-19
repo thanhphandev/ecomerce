@@ -2,11 +2,12 @@
 
 ### Mục Đích Dự Án
 
-Dự án này nhằm mục đích phát triển một ứng dụng sử dụng ngôn ngữ lập trình TypeScript. TypeScript là một ngôn ngữ lập trình mã nguồn mở và là một siêu cấp set của JavaScript, hỗ trợ kiểu dữ liệu tĩnh, giúp tăng cường tính kiểm soát và tính bảo dưỡng của mã nguồn.
+Dự án này nhằm mục đích phát triển một ứng dụng E-commerce, đa nền tảng, bao gồm App mobile, Website. Chia nhỏ các module, hãy và một số tiện ích nâng cao khác đang phát triển 
 
 ### Các Tính Năng Chính
 
-1. **Kiểu Dữ Liệu Tĩnh:** TypeScript giúp kiểm soát lỗi tại thời điểm biên dịch bằng cách sử dụng kiểu dữ liệu tĩnh. Điều này giúp tăng cường tính chắc chắn và dễ bảo dưỡng của mã nguồn.
+1. **Đăng ký, Đăng nhập:** Dự án sử dụng JWT như một phần của việc xác thực người dùng cũng như phân quyền,
+bảo mật và tránh một số lỗi bảo mật phổ biến
 
 2. **Tích Hợp Dễ Dàng:** TypeScript có thể tích hợp dễ dàng với các dự án sử dụng JavaScript. Điều này mang lại sự linh hoạt trong việc mở rộng và phát triển dự án.
 
@@ -29,7 +30,7 @@ Dự án này nhằm mục đích phát triển một ứng dụng sử dụng n
    npm install
    ```
 
-4. **Biên Dịch và Chạy:**
+4. **Biên Dịch:**
    ```bash
    npm run build
    ```

@@ -1,34 +1,45 @@
-import {Document, Schema, model} from 'mongoose';
+import { Document, Schema, model } from 'mongoose';
 
-interface IUser extends Document {
-    username: string,
-    password: string,
-    email: string,
-    phone: number,
-    isAdmin: boolean
+export interface IUser extends Document {
+  username: string;
+  password: string;
+  email: string;
+  phone: number;
+  isAdmin: boolean;
+  avatar: string;
+  address: string;
 }
 
-const userSchema = new Schema <IUser>({
-    username: {
-        type: String,
-        required: true
-    },
-    password: {
-        type: String,
-        required: true
-    },
-    email: {
-        type: String,
-        required: true
-    },
-    phone: {
-        type: Number
-    },
-    isAdmin: {
-        type: Boolean,
-        default: false
-    }
-})
+const userSchema = new Schema<IUser>({
+  username: {
+    type: String,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+  },
+  phone: {
+    type: Number,
+  },
+  isAdmin: {
+    type: Boolean,
+    default: false,
+  },
+  avatar: {
+    type: String,
+    default: function(this:IUser){
+        return `https://ui-avatars.com/api/?name=${this.username}&background=random&color=random`;
+      },
+  },
+  address: {
+    type: String
+  },
+});
 
 const User = model<IUser>('users', userSchema);
-export default User
+export default User;

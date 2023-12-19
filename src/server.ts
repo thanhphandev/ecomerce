@@ -36,7 +36,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
         console.error(err.stack);
         return res.status(HTTPStatus.INTERNAL_SERVER_ERROR).json({
             status: 'Failed',
-            error: '0Internal Server Error',
+            error: 'Internal Server Error',
             stack: err.stack
         });
     }
