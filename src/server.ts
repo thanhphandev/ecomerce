@@ -6,13 +6,15 @@ import connectV1 from './database/connectV1';
 import 'dotenv/config'
 import userRoutes from './routes/users.routes'
 import authRoutes from './routes/auth.routes';
+import {client} from './database/redis'
+import cookieParser from 'cookie-parser';
 
 
 const app = express();
 const PORT = process.env.PORT || 3003
 
 app.use(express.json());
-
+app.use(cookieParser());
 const corsOptions: CorsOptions = {
     origin: 'http://localhost:5173',
     methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
@@ -43,6 +45,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 });
 
 app.listen(PORT, async () => {
+    await client.connect()
     await connectV1()
     console.log(`Server running on port ${PORT} in process ${process.pid}`);
 });

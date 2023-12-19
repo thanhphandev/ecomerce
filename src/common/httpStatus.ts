@@ -1,6 +1,6 @@
 export enum HTTPStatus {
     OK = 200,
-    UNAUTHENICATION = 401,
+    UNAUTHENTICATION = 401,
     UNAUTHORIZATION = 403,
     NOT_FOUND = 404,
     BAD_REQUEST = 400,
