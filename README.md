@@ -21,8 +21,8 @@ bảo mật và tránh một số lỗi bảo mật phổ biến
 
 2. **Clone Dự Án:**
    ```bash
-   git clone https://github.com/your_username/your_project.git
-   cd your_project
+   git clone https://github.com/thanhphanvan1610/typescriptnode.git
+   cd typescriptnode
    ```
 
 3. **Cài Đặt Thư Viện:**
@@ -33,6 +33,11 @@ bảo mật và tránh một số lỗi bảo mật phổ biến
 4. **Biên Dịch:**
    ```bash
    npm run build
+   ```
+   
+5. **Chạy Dự Án:**
+   ```bash
+   npm run start
    ```
 
 ### Hướng Dẫn Sử Dụng
