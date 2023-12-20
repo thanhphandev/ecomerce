@@ -34,11 +34,14 @@
     "dotenv": "^16.3.1",
     "drizzle-orm": "^0.29.1",
     "express": "^4.18.2",
+    "ioredis": "^5.3.2",
     "joi": "^17.11.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.0.3",
     "pg": "^8.11.3",
     "redis": "^4.6.11",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "typescript-cookie": "^1.0.6",
+    "util": "^0.12.5"
   }
 }

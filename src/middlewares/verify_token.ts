@@ -50,6 +50,9 @@ const checkAdmin = (req: Request, res: Response, next: NextFunction) => {
 };
 
 const verifyRefreshToken = (refresh_token: string,) => {
+  if (typeof refresh_token !== 'string') {
+    throw new CustomError('Invalid Refresh Token format', HTTPStatus.UNAUTHORIZATION);
+  }
   const SECRET_TOKEN = process.env.SECRET_REFRESH_KEY!
   const decode = jwt.verify(refresh_token, SECRET_TOKEN);
   if(!decode){

@@ -7,6 +7,7 @@ import sendResponseSuccess from "../helpers/responseHelpers";
 import bcrypt from 'bcrypt';
 import { generateAccessToken, generateRefreshToken } from "../helpers/jwt";
 import { verifyRefreshToken } from "../middlewares/verify_token";
+import client from "../database/redis";
 
 
 export default class AuthControllers {
@@ -36,7 +37,8 @@ export default class AuthControllers {
             const passwordHashed = await bcrypt.hash(password, genSalt);
             const newUser = new User({ username, password: passwordHashed, email, phone });
             const userSaved = await newUser.save();
-            const refresh_token = generateRefreshToken(userSaved)
+            const refresh_token = await generateRefreshToken(userSaved)
+
             res.cookie('refresh_token', refresh_token, {
                 maxAge: 60 * 60 * 24 * 7,
                 httpOnly: true
@@ -67,7 +69,8 @@ export default class AuthControllers {
             if (!checkPassword) {
                 throw new CustomError('Incorrect password!', HTTPStatus.UNAUTHENTICATION);
             }
-            const refresh_token = generateRefreshToken(user)
+            const refresh_token = await generateRefreshToken(user)
+
             res.cookie('refresh_token', refresh_token, {
                 maxAge: 60 * 60 * 24 * 7,
                 httpOnly: true
@@ -85,19 +88,35 @@ export default class AuthControllers {
 
     static async refreshToken(req: Request, res: Response, next: NextFunction) {
         const refresh_token = req.cookies.refresh_token;
+
         if (!refresh_token) {
             return next(new CustomError('Unauthentication', HTTPStatus.UNAUTHENTICATION));
         }
 
         try {
             const decode = verifyRefreshToken(refresh_token) as IUser;
+            if (!decode || !decode.username) {
+                throw new CustomError('Invalid refresh token format', HTTPStatus.UNAUTHENTICATION);
+            }
+
+            const key = decode.username.toString();
+
+            try {
+                const data = await client.get(key);
+                if (!data || JSON.parse(data)?.refresh_token !== refresh_token) {
+                    throw new CustomError('Invalid request! Refresh token does not match', HTTPStatus.UNAUTHENTICATION);
+                }
+            } catch (error) {
+                return next(new CustomError('Internal Server Error', HTTPStatus.INTERNAL_SERVER_ERROR));
+            }
 
             const newAccessToken = generateAccessToken(decode);
-            const newRefreshToken = generateRefreshToken(decode);
-            res.cookie('refresh_token', newRefreshToken, {
+            const newrefresh_token = await generateRefreshToken(decode)
+
+            res.cookie('refresh_token', newrefresh_token, {
                 maxAge: 60 * 60 * 24 * 7,
-                httpOnly: true,
-            });
+                httpOnly: true
+            })
 
             sendResponseSuccess(res, {
                 message: 'Refresh token successful',
@@ -107,6 +126,38 @@ export default class AuthControllers {
             });
         } catch (error) {
             next(error);
+        }
+    }
+
+    static async Logout(req: Request, res: Response, next: NextFunction) {
+        try {
+            const refresh_token = req.cookies.refresh_token;
+            if (!refresh_token) {
+                throw new CustomError('No token provided', HTTPStatus.UNAUTHENTICATION)
+            }
+
+            const decode = verifyRefreshToken(refresh_token) as IUser;
+            if (!decode || !decode.username) {
+                throw new CustomError('Invalid refresh token format', HTTPStatus.UNAUTHENTICATION);
+            }
+
+            const key = decode.username.toString();
+
+            try {
+                const data = await client.get(key);
+                if (!data || JSON.parse(data)?.refresh_token !== refresh_token) {
+                    throw new CustomError('Invalid request! Refresh token does not match', HTTPStatus.UNAUTHENTICATION);
+                }
+            } catch (error) {
+                return next(new CustomError('Internal Server Error', HTTPStatus.INTERNAL_SERVER_ERROR));
+            }
+            res.clearCookie('refresh_token');
+            await client.del(key)
+            sendResponseSuccess(res, {
+                message: 'Logout successful'
+            })
+        } catch (error) {
+            next(error)
         }
     }
 
