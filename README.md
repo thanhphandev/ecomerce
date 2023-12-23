@@ -1,78 +1,59 @@
+## Giới Thiệu Dự Án - Sử Dụng TypeScript
 
+### Mục Đích Dự Án
 
----
+Dự án này nhằm mục đích phát triển một ứng dụng E-commerce, đa nền tảng, bao gồm App mobile, Website. Chia nhỏ các module, hãy và một số tiện ích nâng cao khác đang phát triển 
 
-# TypeScript OmniCommerce: Elevating Cross-Platform Commerce 🚀🌐
+### Các Tính Năng Chính
 
-## Unveiling a Symphony of Technological Brilliance
+1. **Đăng ký, Đăng nhập:** Dự án sử dụng JWT như một phần của việc xác thực người dùng cũng như phân quyền,
+bảo mật và tránh một số lỗi bảo mật phổ biến
 
-Welcome to the era of TypeScript OmniCommerce, a beacon of open-source ingenuity that redefines cross-platform commerce. This project is a testament to precision, sophistication, and collaborative innovation, inviting developers worldwide to partake in a symphony of code.
+2. **Tích Hợp Dễ Dàng:** TypeScript có thể tích hợp dễ dàng với các dự án sử dụng JavaScript. Điều này mang lại sự linh hoạt trong việc mở rộng và phát triển dự án.
 
-## Mastering Integration with TypeScript
+3. **Hiệu Suất Cao:** TypeScript được biên dịch thành JavaScript và chạy trực tiếp trên trình duyệt hoặc môi trường Node.js, giúp đảm bảo hiệu suất cao của ứng dụng.
 
-1. **Technological Symphony:**
-   TypeScript conducts a seamless integration ballet with JavaScript, providing unparalleled flexibility for project extension and development. This open-source endeavor invites technologists to contribute, creating a collaborative masterpiece.
+### Cài Đặt
 
-## Precision Engineering for Peak Performance
+1. **Yêu Cầu Hệ Thống:**
+   - Node.js: [Tải Node.js](https://nodejs.org/)
+   - TypeScript: Cài đặt qua npm - `npm install -g typescript`
 
-2. **Performance Precision:**
-   TypeScript's virtuosity, compiling into JavaScript, delivers a performance masterpiece in browsers or Node.js environments. This commitment to peak performance establishes TypeScript OmniCommerce as a flagship project in the realm of open-source initiatives.
-
-## Beyond Limits: OmniCommerce Functionality
-
-3. **OmniCommerce Functionality:**
-   Breaking conventional limits, TypeScript OmniCommerce   offers a comprehensive suite of cross-platform commerce functionalities. From seamless transactions to adaptive user interfaces, it sets new standards for open-source commerce solutions.
-
-## Cutting-Edge Technologies at the Core
-
-4. **Technological Arsenal:**
-   Leveraging cutting-edge technologies, the project seamlessly integrates with advancements, ensuring compatibility and optimal performance. Every facet reflects a commitment to technological excellence.
-
-## Initiating the OmniCommerce Experience: Installation Protocol
-
-### For Connoisseurs of Craftsmanship
-
-1. **System Prerequisites:**
-   - Node.js: [Download Node.js](https://nodejs.org/)
-   - TypeScript: Install with finesse via npm - `npm install -g typescript`
-
-2. **Commence the Voyage:**
+2. **Clone Dự Án:**
    ```bash
    git clone https://github.com/thanhphanvan1610/typescriptnode.git
    cd typescriptnode
    ```
 
-3. **Prepare for the Voyage with Panache:**
+3. **Cài Đặt Thư Viện:**
    ```bash
    npm install
    ```
 
-4. **Ignite the Technological Engine with Panache:**
+   ```bash
+   npm 
+   ```
+
+4. **Biên Dịch:**
    ```bash
    npm run build
    ```
    
-5. **Navigate the Digital Cosmos with Panache:**
+5. **Chạy Dự Án:**
    ```bash
    npm run start
    ```
 
-## Navigating the Constellations of Usage
+### Hướng Dẫn Sử Dụng
 
-Explore the universe of documentation and examples in the `docs` directory. This refined guide ensures every interaction is a sophisticated journey towards technological excellence.
+Để bắt đầu với dự án, hãy tham khảo tài liệu và ví dụ trong thư mục `docs`. Đảm bảo bạn đã đọc kỹ hướng dẫn sử dụng trước khi bắt đầu phát triển.
 
-## Join the OmniCommerce Guild of Excellence
+### Đóng Góp
 
-### Exclusive Invitations for Tech Connoisseurs
+Chúng tôi rất hoan nghênh sự đóng góp của cộng đồng. Nếu bạn muốn đóng góp vào dự án, vui lòng tạo pull request và theo dõi quy trình đóng góp được mô tả trong tệp CONTRIBUTING.md.
 
-Join the guild of contributors shaping the future! Contribute to TypeScript OmniCommerce   by submitting a pull request. The contribution process, outlined in CONTRIBUTING.md, is an open invitation to tech connoisseurs worldwide.
+### Bản Quyền và Giấy Phép
 
-## Rights and Liberties: Open-Source Aristocracy
+Dự án này được phân phối dưới giấy phép MIT. Xem chi tiết trong tệp LICENSE.
 
-### The MIT Code Scrolls: For Tech Aristocracy
-
-Endowed with the MIT license, this project embodies open-source aristocracy. The sacred scrolls of LICENSE symbolize a commitment to openness and collaboration, positioning TypeScript OmniCommerce   as a flagship within technology excellence.
-
-May TypeScript OmniCommerce   set new benchmarks for open-source excellence. Your interest and contribution are the constellations guiding our journey with utmost professionalism and precision.
-
---- 
+Chúng tôi hy vọng rằng dự án sẽ mang lại giá trị và trải nghiệm lập trình tốt cho cộng đồng phần mềm mã nguồn mở. Cảm ơn bạn đã quan tâm và tham gia!
