@@ -9,6 +9,8 @@ import authRoutes from './routes/auth.routes';
 import {client} from './database/redis'
 import cookieParser from 'cookie-parser';
 import filterRoutes from './routes/filter.routes'
+import categoryRoutes from './routes/category.routes';
+import productRoutes from './routes/product.routes';
 
 
 const app = express();
@@ -27,6 +29,8 @@ app.use(cors(corsOptions));
 app.use('/v1/users', userRoutes);
 app.use('/v1/auth', authRoutes);
 app.use('/v1/search', filterRoutes);
+app.use('/v1/category', categoryRoutes)
+app.use('/v1/product', productRoutes)
 
 // Error handling middleware
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {

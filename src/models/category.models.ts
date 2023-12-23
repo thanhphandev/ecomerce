@@ -1,13 +1,13 @@
 import { Document, Schema, model } from "mongoose";
 
-interface ICategory extends Document{
-    name: string,
-    decribe: string,
+export interface ICategory extends Document{
+    categoryName: string,
+    description: string,
 }
 
 const CategorySchema = new Schema<ICategory>({
-    name: String,
-    decribe: String
+    categoryName: String,
+    description: String
 })
 
 const Category = model<ICategory>('category', CategorySchema)

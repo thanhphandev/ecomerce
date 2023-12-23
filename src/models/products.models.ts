@@ -1,34 +1,34 @@
 import mongoose, { Document, Schema, model } from "mongoose";
 
 interface IProduct extends Document {
-  name: string;
-  category: mongoose.Schema.Types.ObjectId; // Assuming category is of type ObjectId
-  describe: string;
+  productName: string;
+  categoryName: mongoose.Schema.Types.ObjectId;
+  description: string;
   price: number;
   quantity: number; 
 }
 
 const ProductSchema = new Schema<IProduct>({
-  name: {
+  productName: {
     type: String,
     required: true,
   },
-  category: {
+  categoryName: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'category',
     required: true,
   },
-  describe: {
+  description: {
     type: String,
     required: true,
   },
   price: {
     type: Number,
     required: true,
+    default: 0
   },
   quantity: {
     type: Number,
-    required: true,
   },
 });
 
