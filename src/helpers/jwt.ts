@@ -4,14 +4,14 @@ import 'dotenv/config';
 import client from '../database/redis';
 
 export const generateAccessToken = (user: IUser) => {
-    const access_token = jwt.sign({ id: user._id, username: user.username,isAdmin: user.isAdmin }, process.env.SECRET_ACCESS_KEY || 'xin', { expiresIn: '15m' });
+    const access_token = jwt.sign({ id: user._id, username: user.username,isAdmin: user.isAdmin,isBanned: user.isBanned }, process.env.SECRET_ACCESS_KEY || 'xin', { expiresIn: '15m' });
     return access_token;
 }
 
 
 export const generateRefreshToken = async (user: IUser) => {
     const redisKey = user.username.toString();
-    const refresh_token = jwt.sign({ id: user._id, username: user.username, isAdmin: user.isAdmin }, process.env.SECRET_REFRESH_KEY || 'hello', { expiresIn: '59m' });
+    const refresh_token = jwt.sign({ id: user._id, username: user.username, isAdmin: user.isAdmin, isBanned: user.isBanned }, process.env.SECRET_REFRESH_KEY || 'hello', { expiresIn: '59m' });
     
     const existingRefreshToken = await client.get(redisKey);
 

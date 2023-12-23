@@ -65,6 +65,11 @@ export default class AuthControllers {
             if (!user) {
                 throw new CustomError('Not found user!', HTTPStatus.NOT_FOUND);
             }
+
+            if (user.isBanned) {
+                throw new CustomError('You are banned', HTTPStatus.UNAUTHENTICATION);
+            }
+
             const checkPassword = await bcrypt.compare(password, user.password);
             if (!checkPassword) {
                 throw new CustomError('Incorrect password!', HTTPStatus.UNAUTHENTICATION);

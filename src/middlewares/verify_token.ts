@@ -24,8 +24,7 @@ const verifyAccessToken = async (req: Request, res: Response, next: NextFunction
 
   try {
     const decoded = jwt.verify(token, SECRET_TOKEN) as IUser;
-
-    if (decoded.isBanned) {
+    if (decoded.isBanned === true) {
       return next(new CustomError('You are banned', HTTPStatus.UNAUTHENTICATION));
     }
 
@@ -55,7 +54,7 @@ const verifyRefreshToken = (refresh_token: string,) => {
   }
   const SECRET_TOKEN = process.env.SECRET_REFRESH_KEY!
   const decode = jwt.verify(refresh_token, SECRET_TOKEN);
-  if(!decode){
+  if (!decode) {
     throw new CustomError('Unvalid Refresh Token', HTTPStatus.UNAUTHORIZATION);
   }
   return decode;
