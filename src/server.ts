@@ -8,6 +8,7 @@ import userRoutes from './routes/users.routes'
 import authRoutes from './routes/auth.routes';
 import {client} from './database/redis'
 import cookieParser from 'cookie-parser';
+import filterRoutes from './routes/filter.routes'
 
 
 const app = express();
@@ -25,6 +26,7 @@ const corsOptions: CorsOptions = {
 app.use(cors(corsOptions));
 app.use('/v1/users', userRoutes);
 app.use('/v1/auth', authRoutes);
+app.use('/v1/search', filterRoutes);
 
 // Error handling middleware
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {

@@ -1,6 +1,8 @@
 import { Router } from "express";
 import UserControllers from "../controllers/user.controllers";
 import { checkAdmin, verifyAccessToken } from "../middlewares/verify_token";
+
+
 const router = Router();
 
 router.get('/', verifyAccessToken, UserControllers.getAllUsers);

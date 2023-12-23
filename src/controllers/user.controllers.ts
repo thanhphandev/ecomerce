@@ -33,7 +33,7 @@ class UserControllers {
     static async updateUser(req: Request, res: Response, next: NextFunction) {
         try {
             const id = req.query.user
-            if(!id){
+            if (!id) {
                 throw new CustomError('Required id field!', HTTPStatus.BAD_REQUEST);
             }
             const { username, password, email, phone, isAdmin, isBanned, avatar, address } = req.body;
@@ -51,7 +51,6 @@ class UserControllers {
                 }
             }
 
-            // Check if a user with the new email already exists
             if (email && email !== currentUser.email) {
                 const existingEmail = await User.findOne({ email });
                 if (existingEmail) {
@@ -163,6 +162,12 @@ class UserControllers {
             next(error)
         }
     }
+
+    
+    
+    
+    
+    
 
 
 }
