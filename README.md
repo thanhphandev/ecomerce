@@ -24,10 +24,12 @@ Your project introduction looks great! If you want to add more features or detai
 ### Unveil the Power of Real-Time Analytics
 
 1. **Enable Real-Time Analytics:**
+
    - Update your project configuration file to enable the real-time analytics module.
    - Explore the analytics dashboard at `http://your-omnicommerce-app/analytics`.
 
 2. **Craft Tailored User Experiences:**
+
    - Dive into the user-centric design guidelines in the `docs/design` directory.
    - Leverage the provided UI components for creating delightful user interfaces.
 
@@ -43,12 +45,49 @@ As TypeScript OmniCommerce evolves, we invite visionaries and contributors to jo
 
 ```mermaid
 graph TD
-  F[Analytics] -->|Real-Time Insights| G[Tailored UI]
-  G --> H[Plugin Architecture]
-  H -->|Custom Enhancements| I[Contributors]
-  I -->|Innovate and Evolve| J[Future of OmniCommerce]
+  subgraph clusterAnalytics
+    F[Analytics]
+    F -->|Analyze Customer Data| F1[Customer Behavior]
+    F -->|Monitor Transactions| F2[Transaction Patterns]
+    F -->|Manage Inventory| F3[Inventory Insights]
+  end
+
+  subgraph clusterTailoredUI
+    G[Tailored UI]
+    G -->|Responsive Layouts| G1[Mobile]
+    G -->|Intuitive Navigation| G2[Web]
+    G -->|Immersive Experience| G3[Desktop]
+  end
+
+  subgraph clusterPlugin
+    H[Plugin Architecture]
+    H -->|Develop Custom Plugins| H1[Enhanced Checkout]
+    H -->|Extend Functionality| H2[Custom Payment Gateways]
+    H -->|Integrate Third-Party Tools| H3[Shipping APIs]
+  end
+
+  subgraph clusterContributors
+    I[Contributors]
+    I -->|Collaborate on GitHub| I1[Code Contributions]
+    I -->|Provide Feedback| I2[Community Discussions]
+    I -->|Share Ideas| I3[Feature Requests]
+  end
+
+  subgraph clusterFuture
+    J[Future of OmniCommerce]
+    J -->|Continuous Innovation| J1[Explore New Technologies]
+    J -->|Global Community| J2[International Collaboration]
+    J -->|Market Adaptability| J3[Stay Ahead of Trends]
+  end
+
+  style F fill:#86C3B9
+  style G fill:#FFD700
+  style H fill:#E5989B
+  style I fill:#AED6F1
+  style J fill:#F8C471
+
 ```
 
---- 
+---
 
 Feel free to adapt and customize this template to highlight the specific features and aspects of TypeScript OmniCommerce that you want to introduce.
