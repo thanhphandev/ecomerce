@@ -30,6 +30,8 @@ class UserControllers {
             next(error)
         }
     }
+
+    
     static async updateUser(req: Request, res: Response, next: NextFunction) {
         try {
             const id = req.query.user

@@ -5,11 +5,11 @@ import { checkAdmin, verifyAccessToken } from "../middlewares/verify_token";
 
 const router = Router();
 
-router.get('/', verifyAccessToken, UserControllers.getAllUsers);
-router.get('/:id', verifyAccessToken, UserControllers.getUser);
-router.put('/update', verifyAccessToken, UserControllers.updateUser)
+router.get('/', checkAdmin, UserControllers.getAllUsers);
+router.get('/:id', checkAdmin, UserControllers.getUser);
+router.put('/update', checkAdmin, UserControllers.updateUser)
 router.delete('/delete', checkAdmin ,UserControllers.deleteAllUser);
-router.delete('delete/:id', verifyAccessToken ,UserControllers.deleteUser);
-router.post('/ban', verifyAccessToken, UserControllers.banUser)
-router.post('/unban', verifyAccessToken, UserControllers.unbanUser)
+router.delete('delete/:id', checkAdmin ,UserControllers.deleteUser);
+router.post('/ban', checkAdmin, UserControllers.banUser)
+router.post('/unban', checkAdmin, UserControllers.unbanUser)
 export default router
