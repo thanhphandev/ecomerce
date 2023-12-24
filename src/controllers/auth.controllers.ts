@@ -202,12 +202,12 @@ export default class AuthControllers {
             throw new CustomError('Please supply OTP for verification', HTTPStatus.UNAUTHENTICATION);
           }
     
-          const user = await User.findOne({ email });
+          const user = await User.findOne({ email }) as IUser
           if (!user) {
             throw new CustomError('User not found for the provided email', HTTPStatus.NOT_FOUND);
           }
     
-          const checkOTP = await OTP.findOne({ user_id: user._id });
+          const checkOTP = await OTP.findOne({ user_id: user._id }) as IOTP
     
           if (!checkOTP || checkOTP.otp !== otp) {
             throw new CustomError('OTP does not match or is invalid', HTTPStatus.UNAUTHENTICATION);

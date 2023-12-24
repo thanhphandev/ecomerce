@@ -8,34 +8,30 @@ import Category, { ICategory } from "../models/category.models";
 const createProduct = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { productName, categoryName, img, description, price, quantity } = req.body;
-
-    // Combine validation checks
     if (!productName || !categoryName || !quantity) {
       throw new CustomError('Required product name, category, and quantity', HTTPStatus.BAD_REQUEST);
     }
 
-    // Check if the category exists
     const existingCategory = await Category.findOne({ categoryName }) as ICategory
 
-    if (existingCategory) {
-      const savedProduct = await Product.create({
-        productName,
-        categoryName: existingCategory._id,
-        img,
-        description,
-        price,
-        quantity,
-      });
-
-      if (savedProduct) {
-        sendResponseSuccess(res, {
-          message: 'Created product successfully',
-        });
-      } else {
-        throw new CustomError('Error occurred during operation', HTTPStatus.INTERNAL_SERVER_ERROR);
-      }
-    } else {
+    if (!existingCategory) {
       throw new CustomError('Category not found', HTTPStatus.BAD_REQUEST);
+    }
+    const savedProduct = await Product.create({
+      productName,
+      categoryName: existingCategory._id,
+      img,
+      description,
+      price,
+      quantity,
+    });
+
+    if (savedProduct) {
+      sendResponseSuccess(res, {
+        message: 'Created product successfully',
+      });
+    } else {
+      throw new CustomError('Error occurred during operation', HTTPStatus.INTERNAL_SERVER_ERROR);
     }
   } catch (error) {
     next(error);
@@ -83,8 +79,48 @@ const getProduct = async (req: Request, res: Response, next: NextFunction) => {
 
 }
 
+const editProduct = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { id } = req.params;
+    const { productName,
+      categoryName,
+      img,
+      description,
+      price,
+      quantity } = req.body
+    if (!productName || !categoryName || !quantity || !img) {
+      throw new CustomError('Required product name, category, and quantity', HTTPStatus.BAD_REQUEST);
+    }
+
+    const existingCategory = await Category.findOne({ categoryName }) as ICategory
+
+    if (!existingCategory) {
+      throw new CustomError('Category not found', HTTPStatus.BAD_REQUEST);
+    }
+
+    const updateProduct = await Product.findByIdAndUpdate(id, {
+      productName,
+      categoryName: existingCategory._id,
+      img,
+      description,
+      price,
+      quantity
+    })
+    if(!updateProduct){
+      throw new CustomError('not found product', HTTPStatus.NOT_FOUND)
+    }
+    sendResponseSuccess(res, {
+      message: 'update product successful'
+    })
+
+  } catch (error) {
+
+  }
+}
+
 export {
   createProduct,
   getAllProduct,
-  getProduct
+  getProduct,
+  editProduct
 }

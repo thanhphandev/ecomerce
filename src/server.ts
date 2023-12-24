@@ -30,7 +30,7 @@ app.use('/v1/users', userRoutes);
 app.use('/v1/auth', authRoutes);
 app.use('/v1/search', filterRoutes);
 app.use('/v1/category', categoryRoutes)
-app.use('/v1/product', productRoutes)
+app.use('/v1/products', productRoutes)
 
 // Error handling middleware
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
