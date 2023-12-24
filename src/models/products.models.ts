@@ -3,6 +3,7 @@ import mongoose, { Document, Schema, model } from "mongoose";
 interface IProduct extends Document {
   productName: string;
   categoryName: mongoose.Schema.Types.ObjectId;
+  img: string;
   description: string;
   price: number;
   quantity: number; 
@@ -17,6 +18,9 @@ const ProductSchema = new Schema<IProduct>({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'category',
     required: true,
+  },
+  img: {
+    type: String
   },
   description: {
     type: String,
