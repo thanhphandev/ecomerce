@@ -31,7 +31,7 @@ const verifyAccessToken = async (req: Request, res: Response, next: NextFunction
     req.userData = decoded;
     next();
   } catch (err) {
-    return next(new CustomError('Token is invalid!', HTTPStatus.UNAUTHENTICATION));
+    return next(new CustomError('Token is invalid!', HTTPStatus.UNAUTHENTICATION)); 
   }
 };
 

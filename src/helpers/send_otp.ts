@@ -40,7 +40,7 @@ const sendOTP = async (user: IUser) => {
     }
 
     const otp = generateOTP();
-    const expire_time = new Date(Date.now() + 3 * 60 * 1000); // 20 minutes
+    const expire_time = new Date(Date.now() + 15 * 60 * 1000); // 15 minutes
     const newOTP = new OTP({ user_id: user._id, otp, expire_in: expire_time });
     await newOTP.save();
 

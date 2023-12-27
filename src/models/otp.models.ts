@@ -17,7 +17,7 @@ const OTPSchema = new Schema<IOTP>({
     },
     create_at: {
         type: Date,
-        default: Date.now()
+        default: Date.now
     },
     expire_in: {
         type: Date
