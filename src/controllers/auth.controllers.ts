@@ -13,6 +13,7 @@ import OTP, { IOTP } from "../models/otp.models";
 
 
 export default class AuthControllers {
+
     static async signUp(req: Request, res: Response, next: NextFunction) {
         const { username, password, email, phone } = req.body;
         try {
@@ -140,7 +141,7 @@ export default class AuthControllers {
         try {
             const refresh_token = req.cookies.refresh_token;
             if (!refresh_token) {
-                throw new CustomError('No token provided', HTTPStatus.UNAUTHENTICATION)
+                throw new CustomError('Unauthentication', HTTPStatus.UNAUTHENTICATION);
             }
 
             const decode = verifyRefreshToken(refresh_token) as IUser;
@@ -176,12 +177,12 @@ export default class AuthControllers {
             }
             const findEmail = await User.findOne({ email });
             if (!findEmail) {
-                throw new CustomError('Not found your email in system', HTTPStatus.NOT_FOUND);
+                throw new CustomError('Email not found', HTTPStatus.NOT_FOUND);
             }
 
             await sendOTP(findEmail)
             sendResponseSuccess(res, {
-                message: 'we sent OTP to your email!'
+                message: 'OTP sent to your email!'
             })
 
 
@@ -192,44 +193,44 @@ export default class AuthControllers {
 
     static async resetPassword(req: Request, res: Response, next: NextFunction) {
         try {
-          const { email, otp, password } = req.body;
-    
-          if (!email || !password) {
-            throw new CustomError('Required email and password for password reset', HTTPStatus.BAD_REQUEST);
-          }
-    
-          if (!otp) {
-            throw new CustomError('Please supply OTP for verification', HTTPStatus.UNAUTHENTICATION);
-          }
-    
-          const user = await User.findOne({ email }) as IUser
-          if (!user) {
-            throw new CustomError('User not found for the provided email', HTTPStatus.NOT_FOUND);
-          }
-    
-          const checkOTP = await OTP.findOne({ user_id: user._id }) as IOTP
-    
-          if (!checkOTP || checkOTP.otp !== otp) {
-            throw new CustomError('OTP does not match or is invalid', HTTPStatus.UNAUTHENTICATION);
-          }
-    
-          if (checkOTP.expire_in.getTime() < Date.now()) {
-            throw new CustomError('OTP has expired', HTTPStatus.UNAUTHENTICATION);
-          }
-    
-          const genSalt = await bcrypt.genSalt(10);
-          const passwordHashed = await bcrypt.hash(password, genSalt);
-    
-          user.password = passwordHashed;
-          await user.save();
-          await checkOTP.deleteOne({user_id: user._id})
-          sendResponseSuccess(res, {
-            message: 'Password reset successful!',
-          });
+            const { email, otp, password } = req.body;
+
+            if (!email || !password) {
+                throw new CustomError('Required email and password for password reset', HTTPStatus.BAD_REQUEST);
+            }
+
+            if (!otp) {
+                throw new CustomError('Please supply OTP for verification', HTTPStatus.UNAUTHENTICATION);
+            }
+
+            const user = await User.findOne({ email }) as IUser
+            if (!user) {
+                throw new CustomError('User not found for the provided email', HTTPStatus.NOT_FOUND);
+            }
+
+            const checkOTP = await OTP.findOne({ user_id: user._id }) as IOTP
+
+            if (!checkOTP || checkOTP.otp !== otp) {
+                throw new CustomError('OTP does not match or is invalid', HTTPStatus.UNAUTHENTICATION);
+            }
+
+            if (checkOTP.expire_in.getTime() < Date.now()) {
+                throw new CustomError('OTP has expired', HTTPStatus.UNAUTHENTICATION);
+            }
+
+            const genSalt = await bcrypt.genSalt(10);
+            const passwordHashed = await bcrypt.hash(password, genSalt);
+
+            user.password = passwordHashed;
+            await user.save();
+            await checkOTP.deleteOne({ user_id: user._id })
+            sendResponseSuccess(res, {
+                message: 'Password reset successful!',
+            });
         } catch (error) {
-          next(error);
+            next(error);
         }
-      }
+    }
 
 
 }
