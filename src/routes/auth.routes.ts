@@ -8,6 +8,7 @@ router.post('/signup', AuthControllers.signUp)
 router.post('/login', AuthControllers.Login)
 router.get('/refresh', AuthControllers.refreshToken)
 router.post('/forgot-password', OTPLimit, AuthControllers.forgotPassword)
+router.post('/resend_otp', OTPLimit, AuthControllers.resendOTP)
 router.post('/reset-password', AuthControllers.resetPassword)
 router.get('/logout', AuthControllers.Logout)
 

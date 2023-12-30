@@ -5,7 +5,7 @@ import 'dotenv/config';
 import { IUser } from '../models/users.models';
 import { TransportOptions } from 'nodemailer';
 
-const generateOTP = () => {
+export const generateOTP = () => {
   const otp = otpGenerator.generate(6, {
     specialChars: false,
     upperCaseAlphabets: false,
@@ -23,7 +23,7 @@ interface CustomTransportOptions extends TransportOptions {
   };
 }
 
-const sendOTP = async (user: IUser) => {
+const sendOTP = async (user: IUser, otp:string) => {
   try {
     const emailConfigs: CustomTransportOptions = {
       service: 'gmail',
@@ -39,7 +39,6 @@ const sendOTP = async (user: IUser) => {
       await OTP.deleteOne({ user_id: user._id });
     }
 
-    const otp = generateOTP();
     const expire_time = new Date(Date.now() + 15 * 60 * 1000); // 15 minutes
     const newOTP = new OTP({ user_id: user._id, otp, expire_in: expire_time });
     await newOTP.save();

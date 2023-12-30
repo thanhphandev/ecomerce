@@ -8,7 +8,7 @@ import bcrypt from 'bcrypt';
 import { generateAccessToken, generateRefreshToken } from "../helpers/jwt";
 import { verifyRefreshToken } from "../middlewares/verify_token";
 import client from "../database/redis";
-import sendOTP from "../helpers/send_otp";
+import sendOTP, {generateOTP} from "../helpers/send_otp";
 import OTP, { IOTP } from "../models/otp.models";
 
 
@@ -179,8 +179,8 @@ export default class AuthControllers {
             if (!findEmail) {
                 throw new CustomError('Email not found', HTTPStatus.NOT_FOUND);
             }
-
-            await sendOTP(findEmail)
+            const otp = generateOTP();
+            await sendOTP(findEmail, otp)
             sendResponseSuccess(res, {
                 message: 'OTP sent to your email!'
             })
@@ -232,5 +232,34 @@ export default class AuthControllers {
         }
     }
 
+    static async resendOTP(req: Request, res: Response, next: NextFunction) {
+        try {
+            const { email } = req.body;
+            if (!email) {
+                throw new CustomError('Required email for resend OTP', HTTPStatus.BAD_REQUEST);
+            }
+
+            const user = await User.findOne({email}) as IOTP;
+            if (!user) {
+                throw new CustomError('User not found!', HTTPStatus.NOT_FOUND);
+            }
+            
+            // Update the user's OTP in the database
+            const optExists = await OTP.findOne({ user_id: user._id }) as IOTP;
+            const newOTP = generateOTP();
+            optExists.otp = newOTP;
+            await optExists.save();
+    
+            // Send the new OTP to the user
+            await sendOTP(email, newOTP);
+    
+            sendResponseSuccess(res, {
+                message: 'OTP resend successful!'
+            });
+    
+        } catch (error) {
+            next(error);
+        }
+    };
 
 }
