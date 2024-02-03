@@ -4,7 +4,7 @@ import 'dotenv/config';
 import client from '../database/redis';
 
 export const generateAccessToken = (user: IUser) => {
-    const access_token = jwt.sign({ id: user._id, username: user.username,isAdmin: user.isAdmin,isBanned: user.isBanned }, process.env.SECRET_ACCESS_KEY || 'xin', { expiresIn: '6m' });
+    const access_token = jwt.sign({ id: user._id, username: user.username, isAdmin: user.isAdmin,isBanned: user.isBanned }, process.env.SECRET_ACCESS_KEY || 'xin', { expiresIn: '6m' });
     return access_token;
 }
 
